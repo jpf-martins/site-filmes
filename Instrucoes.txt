@@ -1,0 +1,3 @@
+Rodar backend: python app.py
+
+Rodar frontend: npm run dev
