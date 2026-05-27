@@ -49,53 +49,59 @@ function App() {
 
   return (
     <div className="app-bg">
-      <div className="container py-5">
-        <header className="text-center mb-4">
-          <h1 className="titulo-principal">API de Filmes</h1>
+      <nav className="navbar-app">
+        <h1 className="navbar-titulo">API de Filmes</h1>
 
+        <div className="usuario-logado">
+          <span>
+            Logado como <strong>{usuarioLogado.nome}</strong>
+          </span>
+
+          <button className="btn btn-outline-light btn-sm" onClick={sair}>
+            Sair
+          </button>
+        </div>
+      </nav>
+
+      <div className="container conteudo-app">
+        <header className="text-center mb-4">
           <p className="subtitulo">
             Catálogo cinematográfico com Flask, MySQL e React
           </p>
-
-          <div className="usuario-logado mt-3">
-            <span>
-              Logado como <strong>{usuarioLogado.nome}</strong>
-            </span>
-
-            <button className="btn btn-outline-light btn-sm" onClick={sair}>
-              Sair
-            </button>
-          </div>
         </header>
 
-        <nav className="d-flex justify-content-center gap-2 flex-wrap mb-4">
-          <button
-            className={classeBotao("filmes")}
-            onClick={() => setPaginaAtual("filmes")}
-          >
-            Filmes
-          </button>
+        <nav className="mb-4">
+          <div className="d-flex justify-content-center mb-3">
+            <button
+              className={`${classeBotao("filmes")} btn-filmes-destaque`}
+              onClick={() => setPaginaAtual("filmes")}
+            >
+              Filmes
+            </button>
+          </div>
 
-          <button
-            className={classeBotao("generos")}
-            onClick={() => setPaginaAtual("generos")}
-          >
-            Gêneros
-          </button>
+          <div className="d-flex justify-content-center gap-2 flex-wrap">
+            <button
+              className={classeBotao("atores")}
+              onClick={() => setPaginaAtual("atores")}
+            >
+              Atores
+            </button>
 
-          <button
-            className={classeBotao("atores")}
-            onClick={() => setPaginaAtual("atores")}
-          >
-            Atores
-          </button>
+            <button
+              className={classeBotao("generos")}
+              onClick={() => setPaginaAtual("generos")}
+            >
+              Gêneros
+            </button>
 
-          <button
-            className={classeBotao("avaliacoes")}
-            onClick={() => setPaginaAtual("avaliacoes")}
-          >
-            Avaliações
-          </button>
+            <button
+              className={classeBotao("avaliacoes")}
+              onClick={() => setPaginaAtual("avaliacoes")}
+            >
+              Avaliações
+            </button>
+          </div>
         </nav>
 
         <main>{renderizarPagina()}</main>

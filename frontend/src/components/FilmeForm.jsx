@@ -14,6 +14,13 @@ function FilmeForm({
   salvarFilme,
   filmeEditandoId
 }) {
+  const anoAtual = new Date().getFullYear();
+  const anos = [];
+
+  for (let ano = anoAtual; ano >= 1900; ano--) {
+    anos.push(ano);
+  }
+
   return (
     <section className="painel-app mb-4">
       <h2>{filmeEditandoId ? "Editar Filme" : "Cadastrar Filme"}</h2>
@@ -30,13 +37,18 @@ function FilmeForm({
         </div>
 
         <div className="col-md-3">
-          <input
-            className="form-control campo-app"
-            type="number"
-            placeholder="Ano"
+          <select
+            className="form-select campo-app"
             value={anoLancamento}
             onChange={(e) => setAnoLancamento(e.target.value)}
-          />
+          >
+            <option value="">Ano</option>
+            {anos.map((ano) => (
+              <option key={ano} value={ano}>
+                {ano}
+              </option>
+            ))}
+          </select>
         </div>
 
         <div className="col-md-3">
