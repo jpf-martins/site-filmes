@@ -11,11 +11,12 @@ function FilmeForm({
   generos,
   atores,
   alterarAtorSelecionado,
-  salvarFilme
+  salvarFilme,
+  filmeEditandoId
 }) {
   return (
     <section>
-      <h2>Cadastrar Filme</h2>
+<h2>{filmeEditandoId ? "Editar Filme" : "Cadastrar Filme"}</h2>
 
       <form onSubmit={salvarFilme}>
         <input
@@ -63,7 +64,9 @@ function FilmeForm({
           ))}
         </div>
 
-        <button type="submit">Cadastrar Filme</button>
+<button type="submit">
+  {filmeEditandoId ? "Salvar Alterações" : "Cadastrar Filme"}
+</button>
       </form>
     </section>
   );

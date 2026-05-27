@@ -1,4 +1,4 @@
-function FilmeLista({ filmes }) {
+function FilmeLista({ filmes, excluirFilme, editarFilme }) {
   return (
     <section>
       <h2>Filmes cadastrados</h2>
@@ -9,7 +9,19 @@ function FilmeLista({ filmes }) {
         <ul>
           {filmes.map((filme) => (
             <li key={filme.id}>
-              {filme.titulo} - {filme.ano_lancamento}
+              <span>
+                {filme.titulo} - {filme.ano_lancamento}
+              </span>
+
+              <div>
+                <button onClick={() => editarFilme(filme)}>
+                  Editar
+                </button>
+
+                <button onClick={() => excluirFilme(filme.id)}>
+                  Excluir
+                </button>
+              </div>
             </li>
           ))}
         </ul>

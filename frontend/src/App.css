@@ -1,5 +1,5 @@
 .container {
-  max-width: 800px;
+  max-width: 900px;
   margin: 40px auto;
   font-family: Arial, sans-serif;
 }
@@ -9,7 +9,10 @@ h1 {
 }
 
 section {
-  margin-bottom: 30px;
+  margin-bottom: 35px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
 }
 
 form {
@@ -34,6 +37,25 @@ button {
   cursor: pointer;
 }
 
+ul {
+  padding-left: 0;
+}
+
 li {
+  list-style: none;
   margin-bottom: 8px;
+  padding: 10px;
+  border: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+li div {
+  display: flex;
+  gap: 8px;
+}
+
+li button {
+  padding: 6px 10px;
 }
