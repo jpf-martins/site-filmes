@@ -1,61 +1,178 @@
-.container {
-  max-width: 900px;
-  margin: 40px auto;
-  font-family: Arial, sans-serif;
+body {
+  margin: 0;
+  background-color: #0f0f0f;
+  color: #f5f0e8;
 }
 
-h1 {
-  text-align: center;
+.app-bg {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(120, 76, 45, 0.35), transparent 35%),
+    linear-gradient(135deg, #0b0b0b 0%, #1b120d 55%, #0f0f0f 100%);
 }
 
-section {
-  margin-bottom: 35px;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+.titulo-principal {
+  font-family: Georgia, "Times New Roman", serif;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: #f5f0e8;
 }
 
-form {
+.subtitulo,
+.texto-secundario {
+  color: #d8c3a5;
+}
+
+.painel-app {
+  background-color: rgba(20, 15, 12, 0.96);
+  border: 1px solid #5a3825;
+  border-left: 6px solid #8a5a36;
+  padding: 24px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+}
+
+.painel-app h2 {
+  font-family: Georgia, "Times New Roman", serif;
+  color: #d8c3a5;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+}
+
+.campo-app {
+  background-color: #16110e !important;
+  color: #f5f0e8 !important;
+  border: 1px solid #5a3825 !important;
+  border-radius: 2px !important;
+}
+
+.campo-app::placeholder {
+  color: #9f8c78 !important;
+}
+
+.campo-app:focus {
+  border-color: #d8c3a5 !important;
+  box-shadow: 0 0 0 0.2rem rgba(216, 195, 165, 0.16) !important;
+}
+
+.btn {
+  border-radius: 2px !important;
+}
+
+.btn-destaque {
+  background-color: #d8c3a5 !important;
+  color: #0f0f0f !important;
+  border: none !important;
+  font-weight: bold !important;
+}
+
+.btn-destaque:hover {
+  background-color: #8a5a36 !important;
+  color: #f5f0e8 !important;
+}
+
+.item-app {
+  background-color: #120d0a !important;
+  color: #f5f0e8 !important;
+  border: 1px solid #3a261b !important;
+  border-left: 4px solid #8a5a36 !important;
+  margin-bottom: 10px;
+}
+
+.form-check-input {
+  background-color: #16110e;
+  border-color: #8a5a36;
+}
+
+.form-check-input:checked {
+  background-color: #8a5a36;
+  border-color: #d8c3a5;
+}
+
+@media (max-width: 700px) {
+  .item-app {
+    flex-direction: column;
+    align-items: flex-start !important;
+  }
+
+  .item-app div {
+    width: 100%;
+  }
+
+  .item-app button {
+    flex: 1;
+  }
+}
+
+.form-check-label,
+label,
+.form-check-label:hover {
+  color: #f5f0e8 !important;
+}
+
+.login-box {
+  max-width: 720px;
+  background-color: rgba(20, 15, 12, 0.85);
+  border: 1px solid #5a3825;
+  border-left: 5px solid #8a5a36;
+  padding: 16px;
+  color: #f5f0e8;
+}
+
+.btn-filmes-principal {
+  background-color: #d8c3a5 !important;
+  color: #0f0f0f !important;
+  border: 1px solid #d8c3a5 !important;
+  font-weight: bold !important;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding-left: 24px !important;
+  padding-right: 24px !important;
+}
+
+.btn-filmes-principal:hover {
+  background-color: #8a5a36 !important;
+  color: #f5f0e8 !important;
+  border-color: #8a5a36 !important;
+}
+
+.btn-filmes-principal.ativo {
+  box-shadow: 0 0 0 3px rgba(216, 195, 165, 0.25);
+}
+
+.campo-app:disabled {
+  opacity: 0.8;
+  background-color: #2b1d16 !important;
+}
+
+.login-page {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-input,
-select,
-button {
-  padding: 10px;
-  font-size: 16px;
-}
-
-label {
-  display: block;
-  margin-bottom: 6px;
-}
-
-button {
-  cursor: pointer;
-}
-
-ul {
-  padding-left: 0;
-}
-
-li {
-  list-style: none;
-  margin-bottom: 8px;
-  padding: 10px;
-  border: 1px solid #eee;
-  display: flex;
-  justify-content: space-between;
   align-items: center;
 }
 
-li div {
-  display: flex;
-  gap: 8px;
+.login-card {
+  max-width: 520px;
+  background-color: rgba(20, 15, 12, 0.96);
+  border: 1px solid #5a3825;
+  border-left: 6px solid #8a5a36;
+  padding: 32px;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.45);
 }
 
-li button {
-  padding: 6px 10px;
+.link-login {
+  color: #d8c3a5 !important;
+  text-decoration: none !important;
+}
+
+.link-login:hover {
+  color: #f5f0e8 !important;
+}
+
+.usuario-logado {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  background-color: rgba(20, 15, 12, 0.85);
+  border: 1px solid #5a3825;
+  padding: 10px 16px;
+  color: #f5f0e8;
 }

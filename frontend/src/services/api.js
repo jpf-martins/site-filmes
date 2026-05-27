@@ -1,186 +1,147 @@
 const API_URL = "http://127.0.0.1:5000";
 
-export async function listarUsuarios() {
-  const resposta = await fetch(`${API_URL}/usuarios`);
+async function request(endpoint, options = {}) {
+  const resposta = await fetch(`${API_URL}${endpoint}`, options);
   return await resposta.json();
 }
 
-export async function cadastrarUsuario(usuario) {
-  const resposta = await fetch(`${API_URL}/usuarios`, {
+function configurarBody(dados) {
+  return {
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(dados)
+  };
+}
+
+// USUÁRIOS
+export function listarUsuarios() {
+  return request("/usuarios");
+}
+
+export function cadastrarUsuario(usuario) {
+  return request("/usuarios", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(usuario)
+    ...configurarBody(usuario)
   });
-
-  return await resposta.json();
 }
 
-export async function atualizarUsuario(id, usuario) {
-  const resposta = await fetch(`${API_URL}/usuarios/${id}`, {
+export function atualizarUsuario(id, usuario) {
+  return request(`/usuarios/${id}`, {
     method: "PUT",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(usuario)
+    ...configurarBody(usuario)
   });
-
-  return await resposta.json();
 }
 
-export async function deletarUsuario(id) {
-  const resposta = await fetch(`${API_URL}/usuarios/${id}`, {
+export function deletarUsuario(id) {
+  return request(`/usuarios/${id}`, {
     method: "DELETE"
   });
-
-  return await resposta.json();
 }
 
-export async function listarFilmes() {
-  const resposta = await fetch(`${API_URL}/filmes`);
-  return await resposta.json();
+// FILMES
+export function listarFilmes() {
+  return request("/filmes");
 }
 
-export async function cadastrarFilme(filme) {
-  const resposta = await fetch(`${API_URL}/filmes`, {
+export function cadastrarFilme(filme) {
+  return request("/filmes", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(filme)
+    ...configurarBody(filme)
   });
-
-  return await resposta.json();
 }
 
-export async function atualizarFilme(id, filme) {
-  const resposta = await fetch(`${API_URL}/filmes/${id}`, {
+export function atualizarFilme(id, filme) {
+  return request(`/filmes/${id}`, {
     method: "PUT",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(filme)
+    ...configurarBody(filme)
   });
-
-  return await resposta.json();
 }
 
-export async function deletarFilme(id) {
-  const resposta = await fetch(`${API_URL}/filmes/${id}`, {
+export function deletarFilme(id) {
+  return request(`/filmes/${id}`, {
     method: "DELETE"
   });
-
-  return await resposta.json();
 }
 
-export async function listarGeneros() {
-  const resposta = await fetch(`${API_URL}/generos`);
-  return await resposta.json();
+// GÊNEROS
+export function listarGeneros() {
+  return request("/generos");
 }
 
-export async function cadastrarGenero(genero) {
-  const resposta = await fetch(`${API_URL}/generos`, {
+export function cadastrarGenero(genero) {
+  return request("/generos", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(genero)
+    ...configurarBody(genero)
   });
-
-  return await resposta.json();
 }
 
-export async function atualizarGenero(id, genero) {
-  const resposta = await fetch(`${API_URL}/generos/${id}`, {
+export function atualizarGenero(id, genero) {
+  return request(`/generos/${id}`, {
     method: "PUT",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(genero)
+    ...configurarBody(genero)
   });
-
-  return await resposta.json();
 }
 
-export async function deletarGenero(id) {
-  const resposta = await fetch(`${API_URL}/generos/${id}`, {
+export function deletarGenero(id) {
+  return request(`/generos/${id}`, {
     method: "DELETE"
   });
-
-  return await resposta.json();
 }
 
-export async function listarAtores() {
-  const resposta = await fetch(`${API_URL}/atores`);
-  return await resposta.json();
+// ATORES
+export function listarAtores() {
+  return request("/atores");
 }
 
-export async function cadastrarAtor(ator) {
-  const resposta = await fetch(`${API_URL}/atores`, {
+export function cadastrarAtor(ator) {
+  return request("/atores", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(ator)
+    ...configurarBody(ator)
   });
-
-  return await resposta.json();
 }
 
-export async function atualizarAtor(id, ator) {
-  const resposta = await fetch(`${API_URL}/atores/${id}`, {
+export function atualizarAtor(id, ator) {
+  return request(`/atores/${id}`, {
     method: "PUT",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(ator)
+    ...configurarBody(ator)
   });
-
-  return await resposta.json();
 }
 
-export async function deletarAtor(id) {
-  const resposta = await fetch(`${API_URL}/atores/${id}`, {
+export function deletarAtor(id) {
+  return request(`/atores/${id}`, {
     method: "DELETE"
   });
-
-  return await resposta.json();
 }
 
-export async function listarAvaliacoes() {
-  const resposta = await fetch(`${API_URL}/avaliacoes`);
-  return await resposta.json();
+// AVALIAÇÕES
+export function listarAvaliacoes() {
+  return request("/avaliacoes");
 }
 
-export async function cadastrarAvaliacao(avaliacao) {
-  const resposta = await fetch(`${API_URL}/avaliacoes`, {
+export function cadastrarAvaliacao(avaliacao) {
+  return request("/avaliacoes", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(avaliacao)
+    ...configurarBody(avaliacao)
   });
-
-  return await resposta.json();
 }
 
-export async function atualizarAvaliacao(id, avaliacao) {
-  const resposta = await fetch(`${API_URL}/avaliacoes/${id}`, {
+export function atualizarAvaliacao(id, avaliacao) {
+  return request(`/avaliacoes/${id}`, {
     method: "PUT",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(avaliacao)
+    ...configurarBody(avaliacao)
   });
-
-  return await resposta.json();
 }
 
-export async function deletarAvaliacao(id) {
-  const resposta = await fetch(`${API_URL}/avaliacoes/${id}`, {
+export function deletarAvaliacao(id) {
+  return request(`/avaliacoes/${id}`, {
     method: "DELETE"
   });
+}
 
-  return await resposta.json();
+export function loginUsuario(dadosLogin) {
+  return request("/login", {
+    method: "POST",
+    ...configurarBody(dadosLogin)
+  });
 }

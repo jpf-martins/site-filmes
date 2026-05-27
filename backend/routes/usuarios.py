@@ -1,4 +1,5 @@
 from flask import jsonify
+from werkzeug.security import generate_password_hash, check_password_hash
 from models import db, Usuario
 from utils import pegar_json, usuario_para_dict
 
@@ -27,15 +28,24 @@ def init_app(app):
 
         nome = data.get("nome")
         email = data.get("email")
+        senha = data.get("senha")
         idade = data.get("idade")
 
-        if not nome or not email:
-            return jsonify({"erro": "Nome e email são obrigatórios"}), 400
+        if not nome or not email or not senha:
+            return jsonify({"erro": "Nome, email e senha são obrigatórios"}), 400
 
         if Usuario.query.filter_by(email=email).first():
             return jsonify({"erro": "Email já cadastrado"}), 400
 
-        novo_usuario = Usuario(nome=nome, email=email, idade=idade)
+        senha_hash = generate_password_hash(senha)
+
+        novo_usuario = Usuario(
+            nome=nome,
+            email=email,
+            senha=senha_hash,
+            idade=idade
+        )
+
         db.session.add(novo_usuario)
         db.session.commit()
 
@@ -57,6 +67,7 @@ def init_app(app):
 
         nome = data.get("nome")
         email = data.get("email")
+        senha = data.get("senha")
         idade = data.get("idade")
 
         if not nome or not email:
@@ -73,6 +84,9 @@ def init_app(app):
         usuario.nome = nome
         usuario.email = email
         usuario.idade = idade
+
+        if senha:
+            usuario.senha = generate_password_hash(senha)
 
         db.session.commit()
 
@@ -92,3 +106,25 @@ def init_app(app):
         db.session.commit()
 
         return jsonify({"mensagem": "Usuário deletado com sucesso"}), 200
+
+    @app.route("/login", methods=["POST"])
+    def login():
+        data, erro = pegar_json()
+        if erro:
+            return erro
+
+        email = data.get("email")
+        senha = data.get("senha")
+
+        if not email or not senha:
+            return jsonify({"erro": "Email e senha são obrigatórios"}), 400
+
+        usuario = Usuario.query.filter_by(email=email).first()
+
+        if not usuario or not check_password_hash(usuario.senha, senha):
+            return jsonify({"erro": "Email ou senha inválidos"}), 401
+
+        return jsonify({
+            "mensagem": "Login realizado com sucesso",
+            "usuario": usuario_para_dict(usuario)
+        }), 200

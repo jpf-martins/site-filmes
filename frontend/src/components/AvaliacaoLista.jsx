@@ -16,27 +16,30 @@ function AvaliacaoLista({
   }
 
   return (
-    <section>
+    <section className="painel-app mb-4">
       <h2>Avaliações cadastradas</h2>
 
       {avaliacoes.length === 0 ? (
-        <p>Nenhuma avaliação cadastrada.</p>
+        <p className="texto-secundario">Nenhuma avaliação cadastrada.</p>
       ) : (
-        <ul>
+        <ul className="list-group">
           {avaliacoes.map((avaliacao) => (
-            <li key={avaliacao.id}>
+            <li
+              key={avaliacao.id}
+              className="list-group-item item-app d-flex justify-content-between align-items-center gap-3"
+            >
               <span>
                 Nota {avaliacao.nota} - {avaliacao.comentario} |{" "}
                 {buscarNomeUsuario(avaliacao.usuario_id)} avaliou{" "}
                 {buscarTituloFilme(avaliacao.filme_id)}
               </span>
 
-              <div>
-                <button onClick={() => editarAvaliacao(avaliacao)}>
+              <div className="d-flex gap-2">
+                <button className="btn btn-outline-light btn-sm" onClick={() => editarAvaliacao(avaliacao)}>
                   Editar
                 </button>
 
-                <button onClick={() => excluirAvaliacao(avaliacao.id)}>
+                <button className="btn btn-outline-danger btn-sm" onClick={() => excluirAvaliacao(avaliacao.id)}>
                   Excluir
                 </button>
               </div>

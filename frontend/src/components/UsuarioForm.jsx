@@ -9,34 +9,45 @@ function UsuarioForm({
   usuarioEditandoId
 }) {
   return (
-    <section>
+    <section className="painel-app mb-4">
       <h2>{usuarioEditandoId ? "Editar Usuário" : "Cadastrar Usuário"}</h2>
 
-      <form onSubmit={salvarUsuario}>
-        <input
-          type="text"
-          placeholder="Nome do usuário"
-          value={nomeUsuario}
-          onChange={(e) => setNomeUsuario(e.target.value)}
-        />
+      <form onSubmit={salvarUsuario} className="row g-3">
+        <div className="col-md-4">
+          <input
+            className="form-control campo-app"
+            type="text"
+            placeholder="Nome"
+            value={nomeUsuario}
+            onChange={(e) => setNomeUsuario(e.target.value)}
+          />
+        </div>
 
-        <input
-          type="email"
-          placeholder="Email"
-          value={emailUsuario}
-          onChange={(e) => setEmailUsuario(e.target.value)}
-        />
+        <div className="col-md-4">
+          <input
+            className="form-control campo-app"
+            type="email"
+            placeholder="Email"
+            value={emailUsuario}
+            onChange={(e) => setEmailUsuario(e.target.value)}
+          />
+        </div>
 
-        <input
-          type="number"
-          placeholder="Idade"
-          value={idadeUsuario}
-          onChange={(e) => setIdadeUsuario(e.target.value)}
-        />
+        <div className="col-md-2">
+          <input
+            className="form-control campo-app"
+            type="number"
+            placeholder="Idade"
+            value={idadeUsuario}
+            onChange={(e) => setIdadeUsuario(e.target.value)}
+          />
+        </div>
 
-        <button type="submit">
-          {usuarioEditandoId ? "Salvar Alterações" : "Cadastrar Usuário"}
-        </button>
+        <div className="col-md-2">
+          <button className="btn btn-destaque w-100" type="submit">
+            {usuarioEditandoId ? "Salvar" : "Cadastrar"}
+          </button>
+        </div>
       </form>
     </section>
   );

@@ -3,61 +3,69 @@ function AvaliacaoForm({
   setNotaAvaliacao,
   comentarioAvaliacao,
   setComentarioAvaliacao,
-  usuarioAvaliacaoId,
-  setUsuarioAvaliacaoId,
   filmeAvaliacaoId,
   setFilmeAvaliacaoId,
-  usuarios,
-  filmes,
+  filmes = [],
   salvarAvaliacao,
-  avaliacaoEditandoId
+  avaliacaoEditandoId,
+  usuarioLogado
 }) {
   return (
-    <section>
+    <section className="painel-app mb-4">
       <h2>{avaliacaoEditandoId ? "Editar Avaliação" : "Cadastrar Avaliação"}</h2>
 
-      <form onSubmit={salvarAvaliacao}>
-        <input
-          type="number"
-          placeholder="Nota de 0 a 10"
-          value={notaAvaliacao}
-          onChange={(e) => setNotaAvaliacao(e.target.value)}
-        />
+      <form onSubmit={salvarAvaliacao} className="row g-3">
+        <div className="col-md-2">
+          <input
+            className="form-control campo-app"
+            type="number"
+            min="0"
+            max="10"
+            placeholder="Nota"
+            value={notaAvaliacao}
+            onChange={(e) => setNotaAvaliacao(e.target.value)}
+          />
+        </div>
 
-        <input
-          type="text"
-          placeholder="Comentário"
-          value={comentarioAvaliacao}
-          onChange={(e) => setComentarioAvaliacao(e.target.value)}
-        />
+        <div className="col-md-4">
+          <input
+            className="form-control campo-app"
+            type="text"
+            placeholder="Comentário"
+            value={comentarioAvaliacao}
+            onChange={(e) => setComentarioAvaliacao(e.target.value)}
+          />
+        </div>
 
-        <select
-          value={usuarioAvaliacaoId}
-          onChange={(e) => setUsuarioAvaliacaoId(e.target.value)}
-        >
-          <option value="">Selecione um usuário</option>
-          {usuarios.map((usuario) => (
-            <option key={usuario.id} value={usuario.id}>
-              {usuario.nome}
-            </option>
-          ))}
-        </select>
+        <div className="col-md-2">
+          <input
+            className="form-control campo-app"
+            type="text"
+            value={usuarioLogado.nome}
+            disabled
+          />
+        </div>
 
-        <select
-          value={filmeAvaliacaoId}
-          onChange={(e) => setFilmeAvaliacaoId(e.target.value)}
-        >
-          <option value="">Selecione um filme</option>
-          {filmes.map((filme) => (
-            <option key={filme.id} value={filme.id}>
-              {filme.titulo}
-            </option>
-          ))}
-        </select>
+        <div className="col-md-2">
+          <select
+            className="form-select campo-app"
+            value={filmeAvaliacaoId}
+            onChange={(e) => setFilmeAvaliacaoId(e.target.value)}
+          >
+            <option value="">Filme</option>
+            {filmes.map((filme) => (
+              <option key={filme.id} value={filme.id}>
+                {filme.titulo}
+              </option>
+            ))}
+          </select>
+        </div>
 
-        <button type="submit">
-          {avaliacaoEditandoId ? "Salvar Alterações" : "Cadastrar Avaliação"}
-        </button>
+        <div className="col-md-2">
+          <button className="btn btn-destaque w-100" type="submit">
+            {avaliacaoEditandoId ? "Salvar" : "Cadastrar"}
+          </button>
+        </div>
       </form>
     </section>
   );
