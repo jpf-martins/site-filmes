@@ -4,6 +4,7 @@ import GeneroPage from "./pages/GeneroPage";
 import AtorPage from "./pages/AtorPage";
 import FilmePage from "./pages/FilmePage";
 import AvaliacaoPage from "./pages/AvaliacaoPage";
+import { NOME_APP } from "./config/app";
 import "./App.css";
 
 function App() {
@@ -71,7 +72,7 @@ function App() {
   return (
     <div className="app-bg">
       <nav className="navbar-app">
-        <h1 className="navbar-titulo">API de Filmes</h1>
+        <h1 className="navbar-titulo">{NOME_APP}</h1>
 
         <div className="usuario-logado">
           <span>

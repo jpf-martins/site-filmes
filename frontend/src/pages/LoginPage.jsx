@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { loginUsuario, cadastrarUsuario } from "../services/api";
+import { NOME_APP } from "../config/app";
 
 function LoginPage({ aoLogar }) {
   const [modoCadastro, setModoCadastro] = useState(false);
@@ -55,7 +56,7 @@ function LoginPage({ aoLogar }) {
     <div className="app-bg login-page">
       <div className="container py-5">
         <div className="login-card mx-auto">
-          <h1 className="titulo-principal text-center">API de Filmes</h1>
+          <h1 className="titulo-principal text-center">{NOME_APP}</h1>
 
           <p className="subtitulo text-center mb-4">
             {modoCadastro
