@@ -52,7 +52,10 @@ class Filme(db.Model):
     ano_lancamento = db.Column(db.Integer, nullable=False)
     duracao_minutos = db.Column(db.Integer, nullable=False)
     genero_id = db.Column(db.Integer, db.ForeignKey("generos.id"), nullable=False)
+    usuario_id = db.Column(db.Integer, db.ForeignKey("usuarios.id"), nullable=False)
 #
+    usuario = db.relationship("Usuario", backref=db.backref("filmes", lazy=True))
+
     atores = db.relationship(
         "Ator",
         secondary=filme_ator,

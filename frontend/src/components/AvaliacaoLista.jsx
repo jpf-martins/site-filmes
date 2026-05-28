@@ -17,7 +17,7 @@ function AvaliacaoLista({
 
   return (
     <section className="painel-app mb-4">
-      <h2>Avaliações cadastradas</h2>
+      <h2>Avaliações</h2>
 
       {avaliacoes.length === 0 ? (
         <p className="texto-secundario">Nenhuma avaliação cadastrada.</p>

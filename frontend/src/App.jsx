@@ -1,14 +1,17 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import LoginPage from "./pages/LoginPage";
 import GeneroPage from "./pages/GeneroPage";
 import AtorPage from "./pages/AtorPage";
 import FilmePage from "./pages/FilmePage";
 import AvaliacaoPage from "./pages/AvaliacaoPage";
+import Toast from "./components/Toast";
 import { NOME_APP, SUBTITULO_APP } from "./config/app";
 import "./App.css";
 
 function App() {
   const [paginaAtual, setPaginaAtual] = useState("filmes");
+  const [toast, setToast] = useState("");
+  const toastTimer = useRef(null);
 
   const [usuarioLogado, setUsuarioLogado] = useState(() => {
     const usuarioSalvo = localStorage.getItem("usuarioLogado");
@@ -25,32 +28,56 @@ function App() {
     }
   });
 
+  function mostrarToast(mensagem) {
+    if (toastTimer.current) {
+      clearTimeout(toastTimer.current);
+    }
+
+    setToast(mensagem);
+
+    toastTimer.current = setTimeout(() => {
+      setToast("");
+    }, 3000);
+  }
+
   function entrar(usuario) {
     setUsuarioLogado(usuario);
     localStorage.setItem("usuarioLogado", JSON.stringify(usuario));
     setPaginaAtual("filmes");
+    mostrarToast("Login realizado com sucesso.");
   }
 
   function sair() {
     setUsuarioLogado(null);
     localStorage.removeItem("usuarioLogado");
     setPaginaAtual("filmes");
+    mostrarToast("Logout realizado com sucesso.");
   }
 
   function renderizarPagina() {
     if (paginaAtual === "generos") {
-      return <GeneroPage />;
+      return <GeneroPage mostrarToast={mostrarToast} />;
     }
 
     if (paginaAtual === "atores") {
-      return <AtorPage />;
+      return <AtorPage mostrarToast={mostrarToast} />;
     }
 
     if (paginaAtual === "avaliacoes") {
-      return <AvaliacaoPage usuarioLogado={usuarioLogado} />;
+      return (
+        <AvaliacaoPage
+          usuarioLogado={usuarioLogado}
+          mostrarToast={mostrarToast}
+        />
+      );
     }
 
-    return <FilmePage />;
+    return (
+      <FilmePage
+        usuarioLogado={usuarioLogado}
+        mostrarToast={mostrarToast}
+      />
+    );
   }
 
   function classeBotao(pagina) {
@@ -66,7 +93,12 @@ function App() {
   }
 
   if (!usuarioLogado) {
-    return <LoginPage aoLogar={entrar} />;
+    return (
+      <>
+        <LoginPage aoLogar={entrar} mostrarToast={mostrarToast} />
+        <Toast mensagem={toast} />
+      </>
+    );
   }
 
   return (
@@ -126,6 +158,8 @@ function App() {
 
         <main>{renderizarPagina()}</main>
       </div>
+
+      <Toast mensagem={toast} />
     </div>
   );
 }

@@ -35,6 +35,7 @@ def filme_para_dict(filme):
         "ano_lancamento": filme.ano_lancamento,
         "duracao_minutos": filme.duracao_minutos,
         "genero_id": filme.genero_id,
+        "usuario_id": filme.usuario_id,
         "ator_ids": [ator.id for ator in filme.atores]
     }
 

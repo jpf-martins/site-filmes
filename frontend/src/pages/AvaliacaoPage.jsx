@@ -10,7 +10,7 @@ import {
 import AvaliacaoForm from "../components/AvaliacaoForm";
 import AvaliacaoLista from "../components/AvaliacaoLista";
 
-function AvaliacaoPage({ usuarioLogado }) {
+function AvaliacaoPage({ usuarioLogado, mostrarToast }) {
   const [avaliacoes, setAvaliacoes] = useState([]);
   const [usuarios, setUsuarios] = useState([]);
   const [filmes, setFilmes] = useState([]);
@@ -57,7 +57,9 @@ function AvaliacaoPage({ usuarioLogado }) {
 
     let resposta;
 
-    if (avaliacaoEditandoId) {
+    const editando = Boolean(avaliacaoEditandoId);
+
+    if (editando) {
       resposta = await atualizarAvaliacao(avaliacaoEditandoId, novaAvaliacao);
     } else {
       resposta = await cadastrarAvaliacao(novaAvaliacao);
@@ -73,6 +75,7 @@ function AvaliacaoPage({ usuarioLogado }) {
     setFilmeAvaliacaoId("");
     setAvaliacaoEditandoId(null);
 
+    mostrarToast(editando ? "Avaliação atualizada com sucesso." : "Avaliação cadastrada com sucesso.");
     carregarDados();
   }
 
@@ -91,6 +94,7 @@ function AvaliacaoPage({ usuarioLogado }) {
       return;
     }
 
+    mostrarToast("Avaliação excluída com sucesso.");
     carregarDados();
   }
 

@@ -11,7 +11,7 @@ import {
 import FilmeForm from "../components/FilmeForm";
 import FilmeLista from "../components/FilmeLista";
 
-function FilmePage() {
+function FilmePage({ usuarioLogado, mostrarToast }) {
   const [filmes, setFilmes] = useState([]);
   const [generos, setGeneros] = useState([]);
   const [atores, setAtores] = useState([]);
@@ -37,7 +37,7 @@ function FilmePage() {
   });
 
   async function carregarDados() {
-    const dadosFilmes = await listarFilmes();
+    const dadosFilmes = await listarFilmes(usuarioLogado.id);
     const dadosGeneros = await listarGeneros();
     const dadosAtores = await listarAtores();
     const dadosAvaliacoes = await listarAvaliacoes();
@@ -68,12 +68,15 @@ function FilmePage() {
       ano_lancamento: Number(anoLancamento),
       duracao_minutos: Number(duracaoMinutos),
       genero_id: Number(generoId),
+      usuario_id: usuarioLogado.id,
       ator_ids: atorIds
     };
 
     let resposta;
 
-    if (filmeEditandoId) {
+    const editando = Boolean(filmeEditandoId);
+
+    if (editando) {
       resposta = await atualizarFilme(filmeEditandoId, novoFilme);
     } else {
       resposta = await cadastrarFilme(novoFilme);
@@ -91,6 +94,7 @@ function FilmePage() {
     setAtorIds([]);
     setFilmeEditandoId(null);
 
+    mostrarToast(editando ? "Filme atualizado com sucesso." : "Filme cadastrado com sucesso.");
     carregarDados();
   }
 
@@ -111,6 +115,7 @@ function FilmePage() {
       return;
     }
 
+    mostrarToast("Filme excluído com sucesso.");
     carregarDados();
   }
 

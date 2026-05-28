@@ -8,7 +8,7 @@ import {
 import GeneroForm from "../components/GeneroForm";
 import GeneroLista from "../components/GeneroLista";
 
-function GeneroPage() {
+function GeneroPage({ mostrarToast }) {
   const [generos, setGeneros] = useState([]);
 
   const [nomeGenero, setNomeGenero] = useState("");
@@ -34,7 +34,9 @@ function GeneroPage() {
 
     let resposta;
 
-    if (generoEditandoId) {
+    const editando = Boolean(generoEditandoId);
+
+    if (editando) {
       resposta = await atualizarGenero(generoEditandoId, novoGenero);
     } else {
       resposta = await cadastrarGenero(novoGenero);
@@ -49,6 +51,7 @@ function GeneroPage() {
     setDescricaoGenero("");
     setGeneroEditandoId(null);
 
+    mostrarToast(editando ? "Gênero atualizado com sucesso." : "Gênero cadastrado com sucesso.");
     carregarGeneros();
   }
 
@@ -66,6 +69,7 @@ function GeneroPage() {
       return;
     }
 
+    mostrarToast("Gênero excluído com sucesso.");
     carregarGeneros();
   }
 

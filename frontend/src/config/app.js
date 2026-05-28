@@ -1,4 +1,4 @@
-export const NOME_APP = "Filmoteca";
+export const NOME_APP = "✰Filmoteca✰";
 
 export const SUBTITULO_APP =
   "Cadastre seus filmes preferidos e compartilhe avaliações!";

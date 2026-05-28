@@ -12,7 +12,7 @@ function AvaliacaoForm({
 }) {
   return (
     <section className="painel-app mb-4">
-      <h2>{avaliacaoEditandoId ? "Editar Avaliação" : "Cadastrar Avaliação"}</h2>
+      <h2>{avaliacaoEditandoId ? "Editar Avaliação" : "Avaliar filme"}</h2>
 
       <form onSubmit={salvarAvaliacao} className="row g-3">
         <div className="col-md-2">
@@ -63,7 +63,7 @@ function AvaliacaoForm({
 
         <div className="col-md-2">
           <button className="btn btn-destaque w-100" type="submit">
-            {avaliacaoEditandoId ? "Salvar" : "Cadastrar"}
+            {avaliacaoEditandoId ? "Salvar" : "Avaliar"}
           </button>
         </div>
       </form>

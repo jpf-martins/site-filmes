@@ -2,7 +2,7 @@ import { useState } from "react";
 import { loginUsuario, cadastrarUsuario } from "../services/api";
 import { NOME_APP, TEXTOS_LOGIN } from "../config/app";
 
-function LoginPage({ aoLogar }) {
+function LoginPage({ aoLogar, mostrarToast }) {
   const [modoCadastro, setModoCadastro] = useState(false);
 
   const [nome, setNome] = useState("");
@@ -43,7 +43,7 @@ function LoginPage({ aoLogar }) {
       return;
     }
 
-    alert("Usuário cadastrado com sucesso. Agora faça login.");
+    mostrarToast("Usuário cadastrado com sucesso. Faça login.");
 
     setModoCadastro(false);
     setNome("");
@@ -118,9 +118,7 @@ function LoginPage({ aoLogar }) {
             className="btn btn-link link-login w-100 mt-3"
             onClick={() => setModoCadastro(!modoCadastro)}
           >
-            {modoCadastro
-              ? "Já tenho conta"
-              : "Ainda não tenho conta"}
+            {modoCadastro ? "Já tenho conta" : "Ainda não tenho conta"}
           </button>
         </div>
       </div>

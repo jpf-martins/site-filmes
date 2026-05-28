@@ -70,7 +70,7 @@ function FilmeLista({
   return (
     <section className="painel-app mb-4">
       <div className="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
-        <h2 className="mb-0">Filmes cadastrados</h2>
+        <h2 className="mb-0">Seus filmes</h2>
 
         <span className="texto-secundario">
           {filmes.length} filme(s) encontrado(s)

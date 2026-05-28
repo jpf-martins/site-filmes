@@ -40,7 +40,11 @@ export function deletarUsuario(id) {
 }
 
 // FILMES
-export function listarFilmes() {
+export function listarFilmes(usuarioId) {
+  if (usuarioId) {
+    return request(`/filmes?usuario_id=${usuarioId}`);
+  }
+
   return request("/filmes");
 }
 

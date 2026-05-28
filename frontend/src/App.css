@@ -249,6 +249,21 @@ label {
   color: var(--texto) !important;
 }
 
+.toast-app {
+  position: fixed;
+  top: 92px;
+  right: 24px;
+  z-index: 1000;
+  max-width: min(360px, calc(100vw - 32px));
+  padding: 12px 16px;
+  color: var(--texto);
+  background-color: rgba(36, 19, 11, 0.96);
+  border: 1px solid var(--borda);
+  border-left: 4px solid var(--secundario);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.35);
+  font-size: 0.95rem;
+}
+
 @media (max-width: 700px) {
   .navbar-app {
     height: auto;
@@ -277,5 +292,11 @@ label {
 
   .item-app button {
     flex: 1;
+  }
+
+  .toast-app {
+    top: 16px;
+    right: 16px;
+    left: 16px;
   }
 }

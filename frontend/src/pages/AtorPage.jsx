@@ -8,7 +8,7 @@ import {
 import AtorForm from "../components/AtorForm";
 import AtorLista from "../components/AtorLista";
 
-function AtorPage() {
+function AtorPage({ mostrarToast }) {
   const [atores, setAtores] = useState([]);
 
   const [nomeAtor, setNomeAtor] = useState("");
@@ -36,7 +36,9 @@ function AtorPage() {
 
     let resposta;
 
-    if (atorEditandoId) {
+    const editando = Boolean(atorEditandoId);
+
+    if (editando) {
       resposta = await atualizarAtor(atorEditandoId, novoAtor);
     } else {
       resposta = await cadastrarAtor(novoAtor);
@@ -52,6 +54,7 @@ function AtorPage() {
     setIdadeAtor("");
     setAtorEditandoId(null);
 
+    mostrarToast(editando ? "Ator atualizado com sucesso." : "Ator cadastrado com sucesso.");
     carregarAtores();
   }
 
@@ -70,6 +73,7 @@ function AtorPage() {
       return;
     }
 
+    mostrarToast("Ator excluído com sucesso.");
     carregarAtores();
   }
 

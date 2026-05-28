@@ -1,12 +1,21 @@
-from flask import jsonify
-from models import db, Filme, Genero
+from flask import jsonify, request
+from models import db, Filme, Genero, Usuario
 from utils import pegar_json, filme_para_dict, ator_para_dict, buscar_atores_por_ids
 
 
 def init_app(app):
     @app.route("/filmes", methods=["GET"])
     def listar_filmes():
-        filmes = Filme.query.all()
+        usuario_id = request.args.get("usuario_id", type=int)
+
+        if usuario_id is None:
+            filmes = Filme.query.all()
+        else:
+            filmes = Filme.query.filter(
+                (Filme.usuario_id == usuario_id) |
+                Filme.avaliacoes.any(usuario_id=usuario_id)
+            ).all()
+
         lista = [filme_para_dict(f) for f in filmes]
         return jsonify({"filmes": lista, "total": len(lista)}), 200
 
@@ -15,7 +24,7 @@ def init_app(app):
         filme = db.session.get(Filme, filme_id)
 
         if not filme:
-            return jsonify({"erro": "Filme não encontrado"}), 404
+            return jsonify({"erro": "Filme nao encontrado"}), 404
 
         return jsonify(filme_para_dict(filme)), 200
 
@@ -29,14 +38,18 @@ def init_app(app):
         ano_lancamento = data.get("ano_lancamento")
         duracao_minutos = data.get("duracao_minutos")
         genero_id = data.get("genero_id")
+        usuario_id = data.get("usuario_id")
         ator_ids = data.get("ator_ids", [])
 
-        if not titulo or ano_lancamento is None or duracao_minutos is None or genero_id is None:
-            return jsonify({"erro": "titulo, ano_lancamento, duracao_minutos e genero_id são obrigatórios"}), 400
+        if not titulo or ano_lancamento is None or duracao_minutos is None or genero_id is None or usuario_id is None:
+            return jsonify({"erro": "titulo, ano_lancamento, duracao_minutos, genero_id e usuario_id sao obrigatorios"}), 400
 
         genero = db.session.get(Genero, genero_id)
         if not genero:
-            return jsonify({"erro": "Gênero não encontrado"}), 404
+            return jsonify({"erro": "Genero nao encontrado"}), 404
+
+        if not db.session.get(Usuario, usuario_id):
+            return jsonify({"erro": "Usuario nao encontrado"}), 404
 
         atores, erro_atores = buscar_atores_por_ids(ator_ids)
         if erro_atores:
@@ -46,7 +59,8 @@ def init_app(app):
             titulo=titulo,
             ano_lancamento=ano_lancamento,
             duracao_minutos=duracao_minutos,
-            genero_id=genero_id
+            genero_id=genero_id,
+            usuario_id=usuario_id
         )
         novo_filme.atores = atores
 
@@ -63,7 +77,7 @@ def init_app(app):
         filme = db.session.get(Filme, filme_id)
 
         if not filme:
-            return jsonify({"erro": "Filme não encontrado"}), 404
+            return jsonify({"erro": "Filme nao encontrado"}), 404
 
         data, erro = pegar_json()
         if erro:
@@ -76,11 +90,11 @@ def init_app(app):
         ator_ids = data.get("ator_ids", [])
 
         if not titulo or ano_lancamento is None or duracao_minutos is None or genero_id is None:
-            return jsonify({"erro": "titulo, ano_lancamento, duracao_minutos e genero_id são obrigatórios"}), 400
+            return jsonify({"erro": "titulo, ano_lancamento, duracao_minutos e genero_id sao obrigatorios"}), 400
 
         genero = db.session.get(Genero, genero_id)
         if not genero:
-            return jsonify({"erro": "Gênero não encontrado"}), 404
+            return jsonify({"erro": "Genero nao encontrado"}), 404
 
         atores, erro_atores = buscar_atores_por_ids(ator_ids)
         if erro_atores:
@@ -104,7 +118,7 @@ def init_app(app):
         filme = db.session.get(Filme, filme_id)
 
         if not filme:
-            return jsonify({"erro": "Filme não encontrado"}), 404
+            return jsonify({"erro": "Filme nao encontrado"}), 404
 
         filme.atores.clear()
         db.session.delete(filme)
@@ -117,7 +131,7 @@ def init_app(app):
         filme = db.session.get(Filme, filme_id)
 
         if not filme:
-            return jsonify({"erro": "Filme não encontrado"}), 404
+            return jsonify({"erro": "Filme nao encontrado"}), 404
 
         lista = [ator_para_dict(a) for a in filme.atores]
         return jsonify({
