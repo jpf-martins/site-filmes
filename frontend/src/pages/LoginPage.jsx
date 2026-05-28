@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { loginUsuario, cadastrarUsuario } from "../services/api";
-import { NOME_APP } from "../config/app";
+import { NOME_APP, TEXTOS_LOGIN } from "../config/app";
 
 function LoginPage({ aoLogar }) {
   const [modoCadastro, setModoCadastro] = useState(false);
@@ -59,9 +59,7 @@ function LoginPage({ aoLogar }) {
           <h1 className="titulo-principal text-center">{NOME_APP}</h1>
 
           <p className="subtitulo text-center mb-4">
-            {modoCadastro
-              ? "Crie sua conta para acessar o catálogo"
-              : "Entre para acessar o catálogo cinematográfico"}
+            {modoCadastro ? TEXTOS_LOGIN.cadastro : TEXTOS_LOGIN.entrada}
           </p>
 
           <form onSubmit={modoCadastro ? criarConta : entrar} className="row g-3">

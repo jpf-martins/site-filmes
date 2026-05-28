@@ -4,7 +4,7 @@ import GeneroPage from "./pages/GeneroPage";
 import AtorPage from "./pages/AtorPage";
 import FilmePage from "./pages/FilmePage";
 import AvaliacaoPage from "./pages/AvaliacaoPage";
-import { NOME_APP } from "./config/app";
+import { NOME_APP, SUBTITULO_APP } from "./config/app";
 import "./App.css";
 
 function App() {
@@ -87,9 +87,7 @@ function App() {
 
       <div className="container conteudo-app">
         <header className="text-center mb-4">
-          <p className="subtitulo">
-            Catálogo cinematográfico com Flask, MySQL e React
-          </p>
+          <p className="subtitulo">{SUBTITULO_APP}</p>
         </header>
 
         <nav className="mb-4">
