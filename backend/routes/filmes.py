@@ -8,6 +8,7 @@ def init_app(app):
     def listar_filmes():
         usuario_id = request.args.get("usuario_id", type=int)
 
+        # Sem usuário, retorna todos os filmes; com usuário, aplica a regra de visibilidade.
         if usuario_id is None:
             filmes = Filme.query.all()
         else:
@@ -51,6 +52,7 @@ def init_app(app):
         if not db.session.get(Usuario, usuario_id):
             return jsonify({"erro": "Usuario nao encontrado"}), 404
 
+        # Busca e valida todos os atores antes de salvar o filme.
         atores, erro_atores = buscar_atores_por_ids(ator_ids)
         if erro_atores:
             return jsonify({"erro": erro_atores}), 400
@@ -96,6 +98,7 @@ def init_app(app):
         if not genero:
             return jsonify({"erro": "Genero nao encontrado"}), 404
 
+        # Atualiza também a lista de atores vinculados ao filme.
         atores, erro_atores = buscar_atores_por_ids(ator_ids)
         if erro_atores:
             return jsonify({"erro": erro_atores}), 400
@@ -120,6 +123,7 @@ def init_app(app):
         if not filme:
             return jsonify({"erro": "Filme nao encontrado"}), 404
 
+        # Remove vínculos da tabela auxiliar antes de deletar o filme.
         filme.atores.clear()
         db.session.delete(filme)
         db.session.commit()

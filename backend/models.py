@@ -1,7 +1,8 @@
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
-#
+
+# Tabela auxiliar para o relacionamento muitos-para-muitos entre filmes e atores.
 filme_ator = db.Table(
     "filme_ator",
     db.Column("filme_id", db.Integer, db.ForeignKey("filmes.id"), primary_key=True),
@@ -24,6 +25,7 @@ class Usuario(db.Model):
         lazy=True,
         cascade="all, delete-orphan"
     )
+
 
 class Genero(db.Model):
     __tablename__ = "generos"
@@ -52,10 +54,12 @@ class Filme(db.Model):
     ano_lancamento = db.Column(db.Integer, nullable=False)
     duracao_minutos = db.Column(db.Integer, nullable=False)
     genero_id = db.Column(db.Integer, db.ForeignKey("generos.id"), nullable=False)
+    # Identifica o usuário que cadastrou o filme.
     usuario_id = db.Column(db.Integer, db.ForeignKey("usuarios.id"), nullable=False)
-#
+
     usuario = db.relationship("Usuario", backref=db.backref("filmes", lazy=True))
 
+    # Um filme pode ter vários atores, e um ator pode aparecer em vários filmes.
     atores = db.relationship(
         "Ator",
         secondary=filme_ator,
@@ -76,5 +80,6 @@ class Avaliacao(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nota = db.Column(db.Integer, nullable=False)
     comentario = db.Column(db.Text)
+    # Liga cada avaliação ao usuário que avaliou e ao filme avaliado.
     usuario_id = db.Column(db.Integer, db.ForeignKey("usuarios.id"), nullable=False)
     filme_id = db.Column(db.Integer, db.ForeignKey("filmes.id"), nullable=False)

@@ -116,6 +116,7 @@ def init_app(app):
         if not email or not senha:
             return jsonify({"erro": "Email e senha são obrigatórios"}), 400
 
+        # Busca o usuário pelo email informado no login.
         usuario = Usuario.query.filter_by(email=email).first()
 
         if not usuario or usuario.senha != senha:

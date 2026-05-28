@@ -21,6 +21,7 @@ function AvaliacaoPage({ usuarioLogado, mostrarToast }) {
   const [avaliacaoEditandoId, setAvaliacaoEditandoId] = useState(null);
 
   async function carregarDados() {
+    // Nesta tela a lista de filmes fica completa para permitir novas avaliações.
     const dadosAvaliacoes = await listarAvaliacoes();
     const dadosUsuarios = await listarUsuarios();
     const dadosFilmes = await listarFilmes();

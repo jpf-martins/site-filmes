@@ -17,6 +17,7 @@ function AtorPage({ mostrarToast }) {
   const [atorEditandoId, setAtorEditandoId] = useState(null);
 
   async function carregarAtores() {
+    // Mantém a lista de atores sincronizada com a API.
     const dadosAtores = await listarAtores();
     setAtores(dadosAtores.atores);
   }

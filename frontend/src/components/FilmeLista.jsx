@@ -37,6 +37,7 @@ function FilmeLista({
   }
 
   function calcularMediaFilme(id) {
+    // A média considera todas as avaliações carregadas para este filme.
     const avaliacoesDoFilme = buscarAvaliacoesDoFilme(id);
 
     if (avaliacoesDoFilme.length === 0) {

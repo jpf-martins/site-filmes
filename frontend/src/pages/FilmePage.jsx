@@ -37,6 +37,7 @@ function FilmePage({ usuarioLogado, mostrarToast }) {
   });
 
   async function carregarDados() {
+    // Carrega os dados necessários para formulário, filtros, lista e nota média.
     const dadosFilmes = await listarFilmes(usuarioLogado.id);
     const dadosGeneros = await listarGeneros();
     const dadosAtores = await listarAtores();
@@ -148,6 +149,7 @@ function FilmePage({ usuarioLogado, mostrarToast }) {
     .sort((a, b) => b - a);
 
   const filmesFiltrados = filmes.filter((filme) => {
+    // Os filtros são aplicados sobre a lista que já veio liberada para o usuário.
     const tituloConfere = filme.titulo
       .toLowerCase()
       .includes(filtrosAplicados.titulo.toLowerCase());

@@ -16,6 +16,7 @@ function GeneroPage({ mostrarToast }) {
   const [generoEditandoId, setGeneroEditandoId] = useState(null);
 
   async function carregarGeneros() {
+    // Mantém a lista de gêneros sincronizada com a API.
     const dadosGeneros = await listarGeneros();
     setGeneros(dadosGeneros.generos);
   }

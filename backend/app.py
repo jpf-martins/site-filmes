@@ -11,6 +11,7 @@ from routes.extras import init_app as init_extras
 
 app = Flask(__name__)
 
+# Libera o acesso do frontend React para esta API Flask.
 CORS(app)
 
 # Carrega variáveis de ambiente do arquivo backend/.env, se existir.
@@ -30,6 +31,7 @@ DB_NAME = os.getenv("DB_NAME", "api_filmes")
 DB_USER = os.getenv("DB_USER", "root")
 DB_PASS = os.getenv("DB_PASS", "root")
 
+# Monta a string de conexão usada pelo SQLAlchemy para acessar o MySQL.
 app.config["SQLALCHEMY_DATABASE_URI"] = (
     f"mysql+pymysql://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 )
@@ -38,6 +40,7 @@ app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "dev-secret-key")
 
 db.init_app(app)
 
+# Cada módulo registra suas próprias rotas na aplicação principal.
 init_usuarios(app)
 init_generos(app)
 init_atores(app)
@@ -46,6 +49,7 @@ init_avaliacoes(app)
 init_extras(app)
 
 with app.app_context():
+    # Cria as tabelas que ainda não existem, seguindo os models.
     db.create_all()
 
 if __name__ == "__main__":

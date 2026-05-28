@@ -1,10 +1,12 @@
 const API_URL = "http://127.0.0.1:5000";
 
+// Centraliza as chamadas HTTP para manter as páginas mais simples.
 async function request(endpoint, options = {}) {
   const resposta = await fetch(`${API_URL}${endpoint}`, options);
   return await resposta.json();
 }
 
+// Prepara o corpo JSON usado nos cadastros e atualizações.
 function configurarBody(dados) {
   return {
     headers: {
@@ -41,6 +43,7 @@ export function deletarUsuario(id) {
 
 // FILMES
 export function listarFilmes(usuarioId) {
+  // Na tela principal, o usuário recebe apenas os filmes visíveis para ele.
   if (usuarioId) {
     return request(`/filmes?usuario_id=${usuarioId}`);
   }

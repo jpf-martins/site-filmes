@@ -13,6 +13,7 @@ function App() {
   const [toast, setToast] = useState("");
   const toastTimer = useRef(null);
 
+  // Recupera a sessão salva para manter o usuário logado ao recarregar a página.
   const [usuarioLogado, setUsuarioLogado] = useState(() => {
     const usuarioSalvo = localStorage.getItem("usuarioLogado");
 
@@ -42,6 +43,7 @@ function App() {
 
   function entrar(usuario) {
     setUsuarioLogado(usuario);
+    // Salva apenas os dados básicos do usuário logado no navegador.
     localStorage.setItem("usuarioLogado", JSON.stringify(usuario));
     setPaginaAtual("filmes");
     mostrarToast("Login realizado com sucesso.");
@@ -108,7 +110,7 @@ function App() {
 
         <div className="usuario-logado">
           <span>
-            Logado como <strong>{usuarioLogado.nome}</strong>
+            Conectado como <strong>{usuarioLogado.nome}</strong>
           </span>
 
           <button className="btn btn-outline-light btn-sm" onClick={sair}>
