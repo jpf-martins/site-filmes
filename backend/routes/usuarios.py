@@ -1,5 +1,4 @@
 from flask import jsonify
-from werkzeug.security import generate_password_hash, check_password_hash
 from models import db, Usuario
 from utils import pegar_json, usuario_para_dict
 
@@ -37,12 +36,10 @@ def init_app(app):
         if Usuario.query.filter_by(email=email).first():
             return jsonify({"erro": "Email já cadastrado"}), 400
 
-        senha_hash = generate_password_hash(senha)
-
         novo_usuario = Usuario(
             nome=nome,
             email=email,
-            senha=senha_hash,
+            senha=senha,
             idade=idade
         )
 
@@ -86,7 +83,7 @@ def init_app(app):
         usuario.idade = idade
 
         if senha:
-            usuario.senha = generate_password_hash(senha)
+            usuario.senha = senha
 
         db.session.commit()
 
@@ -121,7 +118,7 @@ def init_app(app):
 
         usuario = Usuario.query.filter_by(email=email).first()
 
-        if not usuario or not check_password_hash(usuario.senha, senha):
+        if not usuario or usuario.senha != senha:
             return jsonify({"erro": "Email ou senha inválidos"}), 401
 
         return jsonify({

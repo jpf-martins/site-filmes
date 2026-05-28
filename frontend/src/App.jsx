@@ -8,10 +8,31 @@ import "./App.css";
 
 function App() {
   const [paginaAtual, setPaginaAtual] = useState("filmes");
-  const [usuarioLogado, setUsuarioLogado] = useState(null);
+
+  const [usuarioLogado, setUsuarioLogado] = useState(() => {
+    const usuarioSalvo = localStorage.getItem("usuarioLogado");
+
+    if (!usuarioSalvo) {
+      return null;
+    }
+
+    try {
+      return JSON.parse(usuarioSalvo);
+    } catch {
+      localStorage.removeItem("usuarioLogado");
+      return null;
+    }
+  });
+
+  function entrar(usuario) {
+    setUsuarioLogado(usuario);
+    localStorage.setItem("usuarioLogado", JSON.stringify(usuario));
+    setPaginaAtual("filmes");
+  }
 
   function sair() {
     setUsuarioLogado(null);
+    localStorage.removeItem("usuarioLogado");
     setPaginaAtual("filmes");
   }
 
@@ -44,7 +65,7 @@ function App() {
   }
 
   if (!usuarioLogado) {
-    return <LoginPage aoLogar={setUsuarioLogado} />;
+    return <LoginPage aoLogar={entrar} />;
   }
 
   return (
